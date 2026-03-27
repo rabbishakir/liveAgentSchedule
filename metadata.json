@@ -1,0 +1,7 @@
+{
+  "name": "Andi - E-commerce Voice Assistant",
+  "description": "A bilingual (Bangla/English) voice assistant for scheduling live commerce shows using Gemini Live API.",
+  "requestFramePermissions": [
+    "microphone"
+  ]
+}
