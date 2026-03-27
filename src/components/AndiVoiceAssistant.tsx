@@ -32,8 +32,8 @@ export default function AndiVoiceAssistant() {
   } = useLiveAPI();
 
   const [status, setStatus] = useState<'idle' | 'connecting' | 'connected' | 'recording' | 'processing'>('idle');
-  const [selectedModel, setSelectedModel] = useState(MODELS[0].id);
-  const [selectedVoice, setSelectedVoice] = useState(VOICES[0].id);
+  const selectedModel = MODELS[0].id;
+  const selectedVoice = 'Sulafat';
 
   useEffect(() => {
     if (isProcessing) setStatus('processing');
@@ -61,53 +61,6 @@ export default function AndiVoiceAssistant() {
 
   return (
     <div className="flex flex-col min-h-screen bg-[#E4E3E0] font-sans">
-      {/* Top Bar - Configuration */}
-      <div className="w-full bg-white border-b border-[#141414]/5 px-8 py-4 flex items-center justify-between shadow-sm z-10">
-        <div className="flex items-center gap-6">
-          <div className="flex items-center gap-2">
-            <Settings2 size={16} className="text-[#8E9299]" />
-            <span className="text-[10px] uppercase font-bold tracking-widest text-[#8E9299]">Configuration</span>
-          </div>
-          
-          <div className="flex items-center gap-4">
-            {/* Model Selector */}
-            <div className="relative group">
-              <select 
-                value={selectedModel}
-                onChange={(e) => setSelectedModel(e.target.value)}
-                disabled={isConnected}
-                className="appearance-none bg-[#F5F5F5] border border-[#141414]/5 rounded-lg px-4 py-2 pr-10 text-xs font-medium text-[#141414] focus:outline-none focus:ring-2 focus:ring-emerald-500/20 disabled:opacity-50 cursor-pointer"
-              >
-                {MODELS.map(m => <option key={m.id} value={m.id}>{m.name}</option>)}
-              </select>
-              <ChevronDown size={14} className="absolute right-3 top-1/2 -translate-y-1/2 text-[#8E9299] pointer-events-none" />
-            </div>
-
-            {/* Voice Selector */}
-            <div className="relative group">
-              <select 
-                value={selectedVoice}
-                onChange={(e) => setSelectedVoice(e.target.value)}
-                disabled={isConnected}
-                className="appearance-none bg-[#F5F5F5] border border-[#141414]/5 rounded-lg px-4 py-2 pr-10 text-xs font-medium text-[#141414] focus:outline-none focus:ring-2 focus:ring-emerald-500/20 disabled:opacity-50 cursor-pointer"
-              >
-                {VOICES.map(v => <option key={v.id} value={v.id}>{v.name}</option>)}
-              </select>
-              <ChevronDown size={14} className="absolute right-3 top-1/2 -translate-y-1/2 text-[#8E9299] pointer-events-none" />
-            </div>
-          </div>
-        </div>
-
-        <div className="flex items-center gap-4">
-          <div className={`px-3 py-1 rounded-full text-[10px] font-bold uppercase tracking-widest flex items-center gap-2 ${
-            isConnected ? 'bg-emerald-500/10 text-emerald-600' : 'bg-red-500/10 text-red-600'
-          }`}>
-            <div className={`w-1.5 h-1.5 rounded-full ${isConnected ? 'bg-emerald-500 animate-pulse' : 'bg-red-500'}`} />
-            {isConnected ? 'Live Session Active' : 'Session Offline'}
-          </div>
-        </div>
-      </div>
-
       <div className="flex-1 flex flex-col lg:flex-row">
         {/* Main Assistant Area */}
         <div className="flex-1 flex flex-col items-center justify-center p-8 border-r border-[#141414]/10 bg-[#F5F5F4]">
@@ -266,6 +219,11 @@ export default function AndiVoiceAssistant() {
             </div>
             
             <div className="grid grid-cols-1 gap-4">
+              <VariableItem 
+                icon={<Calendar size={18} />} 
+                label="Schedule Date" 
+                value={collectedData.schedule_date} 
+              />
               <VariableItem 
                 icon={<Calendar size={18} />} 
                 label="Schedule Time" 
